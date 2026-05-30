@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Fathiyaturohmah</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- AOS Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: '#111827',
+                        accentBlue: '#38bdf8',
+                        borderBlue: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #0b0f19; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        
+        /* Animasi buka tutup konten */
+        .content-section {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .content-section.active {
+            max-height: 2500px; /* Batas aman biar konten panjang gak kepotong */
+            opacity: 1;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+    </style>
+</head>
+<body class="text-slate-300 antialiased min-h-screen relative flex flex-col justify-between">
+
+    <!-- Canvas Partikel Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-darkBg/60 backdrop-blur-md border-b border-borderBlue/50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="#" onclick="showSection('home')" class="text-xl font-bold text-white tracking-wider">Fathiya<span class="text-accentBlue">.</span></a>
+            <div class="flex items-center gap-4 text-sm font-medium">
+                <button class="flex items-center gap-1 hover:text-white transition text-xs uppercase"><i data-lucide="globe" class="w-3.5 h-3.5"></i> ID</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Tampilan Pertama Awal Satu Layar Penuh) -->
+    <section class="min-h-screen flex items-center pt-24 px-6 max-w-6xl mx-auto w-full shrink-0">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
+            
+            <!-- Sisi Kiri: Teks Introduksi -->
+            <div class="md:col-span-7 text-center md:text-left flex flex-col justify-center" data-aos="fade-right">
+                <span class="text-xs font-semibold tracking-widest text-accentBlue uppercase mb-3">Halo, Saya</span>
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-none mb-4">
+                    Fathiyaturohmah
+                </h1>
+                <div class="text-xl sm:text-2xl text-slate-400 font-medium mb-6 flex flex-col sm:flex-row items-center md:items-start gap-1">
+                    <span>Seorang</span>
+                    <span class="text-white border-b-2 border-accentBlue pb-0.5 min-h-[36px]">
+                        <span id="typing-text"></span><span class="animate-pulse font-bold text-accentBlue">|</span>
+                    </span>
+                </div>
+                
+                <!-- Sosial Media Icons -->
+                <div class="flex items-center justify-center md:justify-start gap-6 text-slate-400 mb-8">
+                    <a href="https://wa.me/628985504844" target="_blank" class="text-slate-400 hover:text-emerald-400 transition-all duration-300 hover:scale-125">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.instagram.com/ttiyaaw?igsh=MTQzdHd6NW1jdDE2MA==" target="_blank" class="text-slate-400 hover:text-pink-400 transition-all duration-300 hover:scale-125">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C8.74 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.975 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.667-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 1 1 0 12.324 6.162 6.162 0 0 1 0-12.324zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-all duration-300 hover:scale-125">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                </div>
+
+                <!-- Teks Deskripsi Pilihan Kamu -->
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl mb-8">
+                    Mahasiswa <span class="text-white font-medium">Informatika semester 4</span> di <span class="text-accentBlue font-medium">STT NF</span> yang berfokus pada pengembangan <span class="text-white font-bold">Data Science</span>, <span class="text-white font-bold">Artificial Intelligence</span>, dan <span class="text-white font-bold">backend system</span> untuk menciptakan solusi digital yang inovatif dan modern.
+                </p>
+
+                <!-- FITUR UTAMA SEKARANG TETAP DI TENGAH BERSALURAN GLOW -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                    <button onclick="showSection('about')" id="btn-about" class="h-11 min-w-[130px] border border-accentBlue/30 bg-cardBg/60 text-slate-200 font-bold px-5 rounded-xl hover:bg-white hover:text-slate-950 transition-all duration-300 shadow-[0_4px_15px_rgba(56,189,248,0.05)] cursor-pointer text-xs uppercase tracking-wider">
+                        Tentang
+                    </button>
+                    <button onclick="showSection('proyek')" id="btn-proyek" class="h-11 min-w-[130px] border border-accentBlue/30 bg-cardBg/60 text-slate-200 font-bold px-5 rounded-xl hover:bg-white hover:text-slate-950 transition-all duration-300 shadow-[0_4px_15px_rgba(56,189,248,0.05)] cursor-pointer text-xs uppercase tracking-wider">
+                        Proyek
+                    </button>
+                    <button onclick="showSection('kontak')" id="btn-kontak" class="h-11 min-w-[130px] border border-accentBlue/30 bg-cardBg/60 text-slate-200 font-bold px-5 rounded-xl hover:bg-white hover:text-slate-950 transition-all duration-300 shadow-[0_4px_15px_rgba(56,189,248,0.05)] cursor-pointer text-xs uppercase tracking-wider">
+                        Kontak
+                    </button>
+                    
+                    <!-- Bonus: Dokum Gallery Terintegrasi di Tengah Sampingnya -->
+                    <a href="aktivitas.html" class="h-11 border border-dashed border-slate-700 hover:border-accentBlue bg-slate-900/20 text-slate-400 hover:text-accentBlue px-5 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2">
+                        <i data-lucide="images" class="w-4 h-4"></i> Gallery
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sisi Kanan: Kartu Gambar Profil (BADGE SUDAH DIHAPUS BERSIH ✨) -->
+            <div class="md:col-span-5 flex justify-center" data-aos="fade-left">
+                <div class="relative w-full max-w-[340px] aspect-[4/5] bg-cardBg rounded-3xl p-4 border border-borderBlue/60 shadow-2xl group overflow-hidden">
+                    <div class="absolute -inset-1 bg-gradient-to-b from-accentBlue/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl"></div>
+                    <img src="../foto profil.jpeg" alt="Fathiyaturohmah" class="w-full h-full object-cover rounded-2xl grayscale-[15%] group-hover:grayscale-0 transition duration-500">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== AREA KONTEN DINAMIS (MUNCUL MENGEMBANG KE BAWAH) ==================== -->
+    <main class="max-w-4xl mx-auto w-full px-6 relative z-20">
+
+        <!-- KOTAK LOG KANDUNGAN BARU: GARIS DIVIDER NEON ESTETIK -->
+        <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-accentBlue/30 to-transparent mb-4 relative animate-pulse">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-accentBlue rounded-full blur-[3px]"></div>
+        </div>
+
+        <!-- KONTEN 1: ABOUT ME -->
+        <div id="about-section" class="content-section">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2 border-l-4 border-accentBlue pl-3 mb-6">
+                <i data-lucide="user" class="text-accentBlue w-5 h-5"></i> About Me
+            </h2>
+            <div class="bg-cardBg/80 backdrop-blur-md border border-borderBlue p-6 rounded-2xl shadow-lg leading-relaxed text-slate-300 text-sm md:text-base">
+                Halo! Saya Tiya, mahasiswi Informatika semester 4 di STT NF dengan IPK 3.84. Selain hobi ngulik manajemen data dan analisis sistem backend, saya punya ketertarikan besar di bidang strategi produk dan operasional digital. Lewat pengalaman memimpin manajemen kreatif di proyek platform Orderly, saya terbiasa menyelaraskan visi bisnis dengan eksekusi visual yang menarik. Saya mencari peluang magang untuk mengombinasikan kemampuan logika IT dan manajemen media kreatif dalam tim.
+            </div>
+        </div>
+
+        <!-- KONTEN 2: PROJECT PORTFOLIOS -->
+        <div id="proyek-section" class="content-section">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2 border-l-4 border-accentBlue pl-3 mb-8">
+                <i data-lucide="folder-git-2" class="text-accentBlue w-5 h-5"></i> Project Portfolios
+            </h2>
+            <div class="grid grid-cols-1 gap-6">
+                <!-- Proyek 1 -->
+                <div class="bg-cardBg/50 border border-borderBlue p-6 rounded-2xl transition hover:border-accentBlue/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-accentBlue font-semibold uppercase tracking-wider">Web Engineering</span>
+                        <span class="text-[10px] text-slate-500 font-medium"> &middot; 2026</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">E Commerce Katalog Camilan Sehat</h3>
+                    <p class="text-slate-400 text-sm mb-4">Merancang dan membangun arsitektur web penjualan produk camilan sehat secara online menggunakan alur kerja modern dengan metodologi Agile/Scrum.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Node.js</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Express.js</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">React.js</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">MySQL</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Postman</span>
+                    </div>
+                </div>
+
+                <!-- Proyek 2 -->
+                <div class="bg-cardBg/50 border border-borderBlue p-6 rounded-2xl transition hover:border-purple-500/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-purple-400 font-semibold uppercase tracking-wider">Deep Learning Research</span>
+                        <span class="text-[10px] text-slate-500 font-medium"> &middot; 2026</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Intelligent Pest and Disease Monitoring System</h3>
+                    <p class="text-slate-400 text-sm mb-4">Menganalisis penerapan deep learning multimodal berbasis penggabungan data sensor lingkungan (time series) dan citra visual tanaman untuk sistem agrikultur pintar. Mampu memprediksi penyakit pada fase laten 2-5 hari sebelum gejala visual muncul.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Multimodal Deep Learning</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Convolution Transformer</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">GRU</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Attention Mechanism</span>
+                    </div>
+                </div>
+
+                <!-- Proyek 3 -->
+                <div class="bg-cardBg/50 border border-borderBlue p-6 rounded-2xl transition hover:border-purple-500/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-purple-400 font-semibold uppercase tracking-wider">Data Mining</span>
+                        <span class="text-[10px] text-slate-500 font-medium"> &middot; 2026</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Klasifikasi Otomatis Status Mutu Air Sungai Jakarta</h3>
+                    <p class="text-slate-400 text-sm mb-4">Merancang sistem klasifikasi otomatis untuk mengategorikan kualitas air sungai di DKI Jakarta menjadi kelas Cemar Ringan, Sedang, atau Berat menggunakan dataset resmi Dinas Lingkungan Hidup.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Python</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Scikit Learn</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">EDA Pipeline</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Streamlit Demo</span>
+                    </div>
+                </div>
+
+                <!-- Proyek 4 -->
+                <div class="bg-cardBg/50 border border-borderBlue p-6 rounded-2xl transition hover:border-purple-500/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-purple-400 font-semibold uppercase tracking-wider">Natural Language Processing</span>
+                        <span class="text-[10px] text-slate-500 font-medium"> &middot; 2026</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Pipeline Analisis Sentimen & Klasifikasi Berita Indonesia</h3>
+                    <p class="text-slate-400 text-sm mb-4">Membangun pipeline NLP end to end untuk klasifikasi sentimen artikel berita dari Detik, Tempo, dan Kompas. Melakukan eksperimen perbandingan fitur statistik TF IDF dengan representasi semantik Word2Vec.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">PySastrawi Stemming</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">TF IDF / Word2Vec</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Machine Learning</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Gradio Deployment</span>
+                    </div>
+                </div>
+
+                <!-- Proyek 5 -->
+                <div class="bg-cardBg/50 border border-borderBlue p-6 rounded-2xl transition hover:border-amber-500/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-amber-400 font-semibold uppercase tracking-wider">Product Strategy & Creative Media</span>
+                        <span class="text-[10px] text-slate-500 font-medium"> &middot; 2026</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Digital Catalog & Marketplace Platform</h3>
+                    <p class="text-slate-400 text-sm mb-4">Memimpin manajemen identitas visual, strategi penjenamaan (branding), dan produksi media kreatif pembuatan video introduksi representasi bisnis utama platform Orderly khusus kebutuhan mahasiswa.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Branding Direction</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Video Production</span>
+                        <span class="bg-slate-900 text-[10px] text-slate-300 px-2.5 py-1 rounded-md border border-slate-800">Visual Storytelling</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KONTEN 3: HUBUNGI SAYA -->
+        <div id="kontak-section" class="content-section">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2 border-l-4 border-accentBlue pl-3 mb-6">
+                <i data-lucide="mail" class="text-accentBlue w-5 h-5"></i> Hubungi Saya
+            </h2>
+            <div class="bg-cardBg/80 border border-borderBlue p-8 rounded-2xl relative overflow-hidden shadow-xl">
+                <p class="text-slate-400 text-sm text-center mb-8">
+                    Silakan hubungi saya melalui kontak di bawah ini:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- 1. WhatsApp Card -->
+                    <a href="https://wa.me/628985504844" target="_blank" class="bg-darkBg/40 border border-borderBlue/60 p-5 rounded-2xl flex items-center gap-4 hover:border-emerald-500/40 transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="message-circle" class="text-emerald-400 w-5 h-5"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">WhatsApp</span>
+                            <span class="text-xs sm:text-sm text-slate-200 font-semibold group-hover:text-emerald-400 transition-colors truncate block">08985504844</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Email Card -->
+                    <div class="bg-darkBg/40 border border-borderBlue/60 p-5 rounded-2xl flex items-center gap-4 hover:border-accentBlue/40 transition-all group select-all">
+                        <div class="w-10 h-10 rounded-full bg-accentBlue/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="mail" class="text-accentBlue w-5 h-5"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Email</span>
+                            <span class="text-[11px] sm:text-xs text-slate-200 font-semibold group-hover:text-accentBlue transition-colors break-all block">fathiyaturrohmah12@gmail.com</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 3. Instagram Card -->
+                    <a href="https://www.instagram.com/ttiyaaw?igsh=MTQzdHd6NW1jdDE2MA==" target="_blank" class="bg-darkBg/40 border border-borderBlue/60 p-5 rounded-2xl flex items-center gap-4 hover:border-pink-500/40 transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-pink-400 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 0C8.74 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.975 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.667-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 1 1 0 12.324 6.162 6.162 0 0 1 0-12.324zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                            </svg>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Instagram</span>
+                            <span class="text-sm text-slate-200 font-semibold group-hover:text-pink-400 transition-colors truncate block">@ttiyaaw</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER RESMI -->
+    <footer class="w-full max-w-6xl mx-auto px-6 pb-6 pt-4 border-t border-borderBlue/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 tracking-wide relative z-10 shrink-0">
+        <div>
+            <p>&copy; 2026 <span class="text-slate-400 font-medium">Fathiyaturohmah</span>. All Rights Reserved.</p>
+        </div>
+        <div class="flex items-center gap-2 text-slate-400">
+            <span>Informatika</span>
+            <span class="text-slate-600">&middot;</span>
+            <a href="https://nurulfikri.ac.id/" target="_blank" class="hover:text-accentBlue transition-colors duration-300 underline decoration-borderBlue hover:decoration-accentBlue/40 pb-0.5">
+                Sekolah Tinggi Teknologi Terpadu Nurul Fikri
+            </a>
+        </div>
+    </footer>
+
+    <!-- Script Utama -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        lucide.createIcons();
+        AOS.init({ duration: 800, once: true });
+
+        // LOGIKA TRANSISI MELEBAR KE BAWAH SECARA HALUS
+        function showSection(sectionName) {
+            const sections = {
+                'about': document.getElementById('about-section'),
+                'proyek': document.getElementById('proyek-section'),
+                'kontak': document.getElementById('kontak-section')
+            };
+
+            const buttons = {
+                'about': document.getElementById('btn-about'),
+                'proyek': document.getElementById('btn-proyek'),
+                'kontak': document.getElementById('btn-kontak')
+            };
+
+            const targetSection = sections[sectionName];
+
+            // Jika tombol yang sama diklik ulang pas aktif -> Lipat Tutup Kembali
+            if (targetSection && targetSection.classList.contains('active')) {
+                targetSection.classList.remove('active');
+                buttons[sectionName].classList.remove('bg-white', 'text-slate-950', 'border-white');
+                buttons[sectionName].classList.add('bg-cardBg/60', 'text-slate-200', 'border-accentBlue/30');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Normalkan semua seksi & warna tombol terdahulu
+            Object.keys(sections).forEach(key => {
+                if(sections[key]) sections[key].classList.remove('active');
+                if(buttons[key]) {
+                    buttons[key].classList.remove('bg-white', 'text-slate-950', 'border-white');
+                    buttons[key].classList.add('bg-cardBg/60', 'text-slate-200', 'border-accentBlue/30');
+                }
+            });
+
+            // Aktifkan seksi yang baru & ubah highlight tombol di tengah
+            if (targetSection) {
+                targetSection.classList.add('active');
+                buttons[sectionName].classList.remove('bg-cardBg/60', 'text-slate-200', 'border-accentBlue/30');
+                buttons[sectionName].classList.add('bg-white', 'text-slate-950', 'border-white');
+                
+                // Beri jeda animasi transisi melorot, baru scroll otomatis turun kebawah
+                setTimeout(() => {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 120);
+            }
+        }
+    </script>
+</body>
+</html>

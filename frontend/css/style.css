@@ -1,0 +1,46 @@
+:root {
+    --bg-color: #070a13;
+    --card-bg: #111928;
+    --accent-blue: #38bdf8;
+    --border-blue: #1f2a45;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Kustomisasi Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: #1f293d;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-blue);
+}
+
+/* Kanvas Partikel */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Utilitas Tambahan Pasca Saring Tailwind */
+.border-borderBlue { border-color: var(--border-blue); }
+.bg-cardBg\/80 { background-color: rgba(17, 25, 40, 0.8); }
+.bg-cardBg\/60 { background-color: rgba(17, 25, 40, 0.6); }
+.text-accentBlue { color: var(--accent-blue); }
+.border-accentBlue\/40 { border-color: rgba(56, 189, 248, 0.4); }
+.border-accentBlue\/60 { border-color: rgba(56, 189, 248, 0.6); }
